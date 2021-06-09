@@ -21,6 +21,5 @@
     "website-scraper": "^4.2.3",
     "website-scraper-existing-directory": "^0.1.0",
     "website-scraper-phantom": "^1.0.0"
-  },
-  "gitHead": "47a7b99201e7e6dcc489c1507e94e5ce3f588093"
+  }
 }
