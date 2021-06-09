@@ -2,47 +2,43 @@
 
 a simple cli wrapper for [website-scraper - npm](https://www.npmjs.com/package/website-scraper)
 
+## how to install
+
+```
+npm install -g scraper-util
+```
+
+or local install
+
+```json
+# package.json 
+  "scripts": {
+    "scraper-util": "scraper-util",
+  },
+
+```
+
+```bash
+npm run scraper-util --silent -- scrape
+```
+
+
 ### how to use
 
-* scape a single url
-
-
 ```
-node cli.js scrape test.yaml --url test.csv
-```
+> scraper-util "scrape" "--help"
 
-test.csv is urls to be scrape, one line each, or can specify in test.yaml
+Usage: scraper-util scrape [options] <configFile>
 
-
-* genConfig
-
-```
-node cli.js genConfig
-
+Options:
+  -url, --url [urlFile]  urls csv path
+  -h, --help             output usage information
 ```
 
 
-## default configs
-
-```yaml
-urls: #needed
-  - 
-directory: './' # mandary, output directory
-# optional parameters
-recursive:  
-  depth: 0 # maxRecursiveDepth, default 0 
-  domainFilter: # domainFilter and patternFilter can only pick one
-    - # www.google.com
-  patternFilter:
-    - # web.store.google.com
-request:
-  userAgent: # default empty if empty then will use a random user agent
-  concurrency: 10000 
-  renderer: # default empty, no dynamic js site support
-    # phantom:
-# defaults
-sources: [] # download html only
-filenameGenerator: bySiteStructure
-ignoreErrors: true
+* gen sample config File 
 
 ```
+npm run scraper-util --silent -- genConfig
+```
+
