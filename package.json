@@ -6,8 +6,9 @@
   "bin": {
     "scraper-util": "bin/scraperUtil"
   },
+    "repository": "marvinwu/scraper-util",
   "scripts": {},
-  "keywords": [],
+  "keywords": ["scraper","cli"],
   "author": "",
   "license": "ISC",
   "dependencies": {
