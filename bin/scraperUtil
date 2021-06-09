@@ -3,7 +3,7 @@ const program = require('commander')
 const yaml = require('js-yaml')
 const scrape = require('website-scraper')
 const fs = require('fs')
-const { urlTypeFilter, configMaker } = require('./util')
+const { urlTypeFilter, configMaker } = require('../lib/util')
 const _ = require('lodash')
 const defaultYaml = `
 urls: #needed
