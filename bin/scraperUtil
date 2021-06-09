@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+const program = require('commander')
+const yaml = require('js-yaml')
+const scrape = require('website-scraper')
+const fs = require('fs')
+const { urlTypeFilter, configMaker } = require('./util')
+const _ = require('lodash')
+const defaultYaml = `
+urls: #needed
+  - 
+directory: './' # mandary, output directory
+# optional parameters
+recursive:  
+  depth: 0 # maxRecursiveDepth, default 0 
+  domainFilter: # domainFilter and patternFilter can only pick one
+    - # google.com
+  patternFilter:
+    - # web.store.google.com
+request:
+  userAgent: # default empty if empty then will use a random user agent
+  concurrency: 10000 
+  renderer: # default empty, no dynamic js site support
+    # phantom:
+`
+
+global.previousUrls = new Set([])
+
+program
+  .command('scrape <configFile>')
+  .option('-url, --url [urlFile]', 'urls csv path')
+  .action((configFile, options) => {
+    let urls = []
+    if (options.url) {
+      urls = _.compact(fs.readFileSync(options.url, 'utf-8').split('\n'))
+    }
+    const config = yaml.safeLoad(fs.readFileSync(configFile, 'utf-8'))
+    const scraperOption = configMaker(config, urls, previousUrls)
+    console.error(scraperOption)
+    console.log(`urls`)
+    scrape(scraperOption).then(() => {
+      console.error(`\nscraping done`)
+    })
+  })
+
+program.command('genConfig').action(() => {
+  console.log(defaultYaml)
+})
+
+program.on('command:*', () => {
+  console.error(
+    'Invalid command: %s\nSee --help for a list of available commands.',
+    program.args.join(' ')
+  )
+  process.exit(1)
+})
+
+program.parse(process.argv)
